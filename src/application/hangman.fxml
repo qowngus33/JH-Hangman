@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <TextField fx:id="AnswerField" layoutX="226.0" layoutY="317.0" />
+      <Text fx:id="AlreadyAnswered" layoutX="294.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
+      <Text layoutX="129.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter one word:" />
+      <Line fx:id="slingX" endX="100.0" layoutX="296.0" layoutY="41.0" startX="-120.0" />
+      <Line fx:id="slingY" endY="150.0" layoutX="195.0" layoutY="83.0" startY="-60.0" />
+      <Circle fx:id="man_head" fill="#1f93ff00" layoutX="296.0" layoutY="74.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line fx:id="man_body" endY="80.0" layoutX="296.0" layoutY="93.0" />
+      <Line fx:id="man_left_arm" endX="-20.0" endY="50.0" layoutX="296.0" layoutY="93.0" />
+      <Line fx:id="man_right_arm" endX="20.0" endY="50.0" layoutX="296.0" layoutY="93.0" />
+      <Line fx:id="slingRope" endY="-40.0" layoutX="296.0" layoutY="93.0" startY="-50.0" />
+      <Line fx:id="man_left_leg" endX="-10.0" endY="120.0" layoutX="296.0" layoutY="103.0" startY="70.0" />
+      <Line fx:id="man_right_leg" endX="10.0" endY="120.0" layoutX="296.0" layoutY="103.0" startY="70.0" />
+      <Button onAction="#Restart" layoutX="505.0" layoutY="14.0" mnemonicParsing="false" text="RESTART" />
+      <Button onAction="#Submit" layoutX="391.0" layoutY="317.0" mnemonicParsing="false" text="SUBMIT" />
+      <Line endX="-70.0" layoutX="288.0" layoutY="289.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="328.0" layoutY="289.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="368.0" layoutY="289.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="408.0" layoutY="289.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="448.0" layoutY="289.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="488.0" layoutY="289.0" startX="-100.0" />
+      <Text fx:id="word1" layoutX="197.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="word2" layoutX="237.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="word3" layoutX="277.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="word4" layoutX="317.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="word5" layoutX="357.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+      <Text fx:id="word6" layoutX="397.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font size="17.0" />
+         </font>
+      </Text>
+   </children>
+</Pane>
