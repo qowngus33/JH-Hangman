@@ -8,55 +8,67 @@
 
 <Pane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <TextField fx:id="AnswerField" layoutX="226.0" layoutY="317.0" />
-      <Text fx:id="AlreadyAnswered" layoutX="294.0" layoutY="369.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
-      <Text layoutX="129.0" layoutY="336.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter one word:" />
-      <Line fx:id="slingX" endX="100.0" layoutX="296.0" layoutY="41.0" startX="-120.0" />
-      <Line fx:id="slingY" endY="150.0" layoutX="195.0" layoutY="83.0" startY="-60.0" />
-      <Circle fx:id="man_head" fill="#1f93ff00" layoutX="296.0" layoutY="74.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
-      <Line fx:id="man_body" endY="80.0" layoutX="296.0" layoutY="93.0" />
-      <Line fx:id="man_left_arm" endX="-20.0" endY="50.0" layoutX="296.0" layoutY="93.0" />
-      <Line fx:id="man_right_arm" endX="20.0" endY="50.0" layoutX="296.0" layoutY="93.0" />
-      <Line fx:id="slingRope" endY="-40.0" layoutX="296.0" layoutY="93.0" startY="-50.0" />
-      <Line fx:id="man_left_leg" endX="-10.0" endY="120.0" layoutX="296.0" layoutY="103.0" startY="70.0" />
-      <Line fx:id="man_right_leg" endX="10.0" endY="120.0" layoutX="296.0" layoutY="103.0" startY="70.0" />
-      <Button fx:id="startBtn" onAction="#Restart" layoutX="505.0" layoutY="14.0" mnemonicParsing="false" text="STARTGAME" />
-      <Button onAction="#Submit" layoutX="391.0" layoutY="317.0" mnemonicParsing="false" text="SUBMIT" />
-      <Line endX="-70.0" layoutX="288.0" layoutY="289.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="328.0" layoutY="289.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="368.0" layoutY="289.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="408.0" layoutY="289.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="448.0" layoutY="289.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="488.0" layoutY="289.0" startX="-100.0" />
-      <Text fx:id="word1" layoutX="197.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dceeff" height="47.0" layoutY="1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="600.0" />
+      <TextField fx:id="AnswerField" layoutX="385.0" layoutY="338.0" prefHeight="27.0" prefWidth="108.0" />
+      <Text fx:id="FailsText" layoutX="50.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+         <font>
+            <Font name="System Bold" size="15.0" />
+         </font></Text>
+      <Text fx:id="Smile" layoutX="426.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" rotate="90" text=""/>
+      <Text layoutX="291.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter one word:" />
+      <Line fx:id="slingX" endX="70.0" endY="5.0" layoutX="447.0" layoutY="72.0" startX="-110.0" startY="5.0" />
+      <Line fx:id="slingY" endY="140.0" layoutX="346.0" layoutY="127.0" startY="-50.0" />
+      <Circle fx:id="man_head" fill="#1f93ff00" layoutX="430.0" layoutY="109.0" radius="20.0" stroke="BLACK" strokeType="INSIDE" />
+      <Line fx:id="man_body" endY="70.0" layoutX="430.0" layoutY="121.0" startY="10.0" />
+      <Line fx:id="man_left_arm" endX="-20.0" endY="50.0" layoutX="430.0" layoutY="129.0" />
+      <Line fx:id="man_right_arm" endX="20.0" endY="50.0" layoutX="430.0" layoutY="129.0" />
+      <Line fx:id="slingRope" endY="-39.0" layoutX="430.0" layoutY="128.0" startY="-50.0" />
+      <Line fx:id="man_left_leg" endX="-10.0" endY="120.0" layoutX="430.0" layoutY="123.0" startY="70.0" />
+      <Line fx:id="man_right_leg" endX="10.0" endY="120.0" layoutX="430.0" layoutY="123.0" startY="70.0" />
+      <Button fx:id="startBtn" layoutX="531.0" layoutY="10.0" mnemonicParsing="false" onAction="#Restart" text="START" />
+      <Button fx:id="submitBtn" layoutX="497.0" layoutY="338.0" mnemonicParsing="false" onAction="#Submit" disable="true" text="Enter" />
+      <Line endX="-70.0" layoutX="403.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="443.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="483.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="523.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="563.0" layoutY="319.0" startX="-100.0" />
+      <Line endX="-70.0" layoutX="603.0" layoutY="319.0" startX="-100.0" />
+      <Text fx:id="word1" layoutX="312.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="word2" layoutX="237.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Text fx:id="word2" layoutX="352.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="R">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="word3" layoutX="277.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Text fx:id="word3" layoutX="392.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="O">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="word4" layoutX="317.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Text fx:id="word4" layoutX="432.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="W">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="word5" layoutX="357.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Text fx:id="word5" layoutX="472.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="N">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
-      <Text fx:id="word6" layoutX="397.0" layoutY="275.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
+      <Text fx:id="word6" layoutX="512.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Y">
          <font>
             <Font size="17.0" />
          </font>
       </Text>
+      <TextArea layoutX="45.0" layoutY="83.0" prefHeight="185.0" prefWidth="214.0" />
+      <Text fill="#000000ab" layoutX="219.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JH HANGMAN GAME" textAlignment="CENTER">
+         <font>
+            <Font name="System Bold" size="19.0" />
+         </font>
+      </Text>
+      <Text fx:id="AlreadyAnswered" layoutX="94.0" layoutY="298.0" strokeType="OUTSIDE" strokeWidth="0.0" text="" />
    </children>
 </Pane>
