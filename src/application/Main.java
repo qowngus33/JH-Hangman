@@ -15,7 +15,7 @@ public class Main extends Application {
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("hangman.fxml"));
 		primaryStage.setScene(new Scene(root));
-		primaryStage.setTitle("JH Hangman Game");
+		primaryStage.setTitle("Hangman");
 		primaryStage.show();
 	}
 	
