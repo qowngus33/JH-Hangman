@@ -27,6 +27,7 @@ public class Controller {
 	private String currentWord;
 	private int correctWord = 0;
 	private int phase = 0;
+	private int hintNum = 0;
 
 	@FXML
 	private TextField AnswerField;
@@ -71,6 +72,8 @@ public class Controller {
 	private Button startBtn;
 	@FXML
 	private Button submitBtn;
+	@FXML
+	private Button hintBtn;
 
 	public void getWordMeaning() {
 		// API로 원하는 단어의 뜻을 가져올 함
@@ -100,34 +103,71 @@ public class Controller {
 		if (correctWord < 6) {
 			String ans = AnswerField.getText();
 			AnswerField.setText(""); // Initialize answer field.
-
-			boolean flag = false;
-
-			if (ans.length() == 1)
-				if (checkText(ans.charAt(0)))
-					if (checkAns(ans.charAt(0)) && v.contains(ans.charAt(0)) == false)
-						flag = true;
-
-			if (flag) {
-				setTextVisible(ans.charAt(0));
-				v.add(ans.charAt(0));
-			} else if (ans.length() != 1 || !checkText(ans.charAt(0)) || v.contains(ans.charAt(0))) {
-				System.out.println("Wrong Character.");
-			} else {
-				phase += 1;
-				v.add(ans.charAt(0));
-
-				if (AlreadyAnswered.getText().length() == 0) {
-					AlreadyAnswered.setText(ans.charAt(0) + "");
-				} else {
-					AlreadyAnswered.setText(AlreadyAnswered.getText() + ", " + ans.charAt(0));
+			
+			if(ans.length()==1 && isAlphabet(ans.charAt(0))) {
+				char temp = ans.toLowerCase().charAt(0);
+				
+				if(currentWord.indexOf(temp, 0) != -1 && !v.contains(ans.charAt(0))) {
+					setTextVisible(temp);
+					v.add(temp);
+				} else if(v.contains(temp)) {
+					System.out.println("Wrong Character.");
 				}
+				
+				else {
+					phase += 1; //정답이 틀린 경
+					v.add(temp);
 
-				drawHangMan(phase);
+					if (AlreadyAnswered.getText().length() == 0) {
+						AlreadyAnswered.setText(temp + "");
+					} else {
+						AlreadyAnswered.setText(AlreadyAnswered.getText() + ", " + temp);
+					}
+
+					drawHangMan(phase);
+				}
+				
+			} else {
+				System.out.println("Wrong Character.");
 			}
 		}
 
 		if (correctWord == 6) {
+			gameEnded(true);
+		}
+	}
+	
+	@FXML
+	private void Hint(ActionEvent event) {
+		if(!hintBtn.isDisabled()) {
+			if (word1.getText()=="") {
+				word1.setText(currentWord.charAt(0) + "");
+			}else if (word2.getText()=="") {
+				word2.setText(currentWord.charAt(1) + "");
+			}else if (word3.getText() == "") {
+				word3.setText(currentWord.charAt(2) + "");
+			}
+			else if (word4.getText() == "") {
+				word4.setText(currentWord.charAt(3) + "");
+			}
+			else if (word5.getText() == "") {
+				word5.setText(currentWord.charAt(4) + "");
+			}
+			else if (word6.getText() == "") {
+				word6.setText(currentWord.charAt(5) + "");
+			} else {
+				correctWord--;
+			}
+			
+			hintNum++;
+			correctWord++;
+		}
+		
+		if(hintNum == 2) {
+			hintBtn.setDisable(true);
+		}
+		
+		if(correctWord==6) {
 			gameEnded(true);
 		}
 	}
@@ -157,44 +197,39 @@ public class Controller {
 
 	}
 
-	public boolean checkText(char ch) {
+	public boolean isAlphabet(char ch) {
 		int temp = (int) (ch);
 		boolean flag = false;
 		if (temp >= 65 && temp <= 90)
 			flag = true;
 		else if (temp >= 97 && temp <= 122)
 			flag = true;
-		;
-
+	
 		return flag;
 	}
 
-	public boolean checkAns(char ch) {
-		return (currentWord.indexOf(ch, 0) != -1 && v.indexOf(ch) == -1);
-	}
-
 	public void setTextVisible(char ch) {
-		if (currentWord.charAt(0) == ch) {
+		if (currentWord.charAt(0) == ch && word1.getText() == "") {
 			word1.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(1) == ch) {
+		if (currentWord.charAt(1) == ch && word2.getText() == "") {
 			word2.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(2) == ch) {
+		if (currentWord.charAt(2) == ch && word3.getText() == "") {
 			word3.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(3) == ch) {
+		if (currentWord.charAt(3) == ch && word4.getText() == "") {
 			word4.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(4) == ch) {
+		if (currentWord.charAt(4) == ch && word5.getText() == "") {
 			word5.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(5) == ch) {
+		if (currentWord.charAt(5) == ch && word6.getText() == "") {
 			word6.setText(ch + "");
 			correctWord++;
 		}
@@ -212,11 +247,14 @@ public class Controller {
 
 		correctWord = 0;
 		phase = 0;
+		hintNum = 0;
 
 		AlreadyAnswered.setText("");
 		FailsText.setText("Fails: ");
 		Smile.setText("");
 
+		submitBtn.setDisable(false);
+		hintBtn.setDisable(false);
 		v.clear();
 	}
 
@@ -310,16 +348,18 @@ public class Controller {
 		if (!isWon) {
 			Smile.setText("X");
 			FailsText.setText("You Lost : (");
-			AlreadyAnswered.setText("");
-
+			
 			setHangmanY(-10);
 			showAns();
+			submitBtn.setDisable(true);
 		} else {
 			Smile.setText(": )");
 			FailsText.setText("You Win !!");
-			AlreadyAnswered.setText("");
 
 			showMan();
 		}
+		hintBtn.setDisable(true);
+		submitBtn.setDisable(true);
+		AlreadyAnswered.setText("");
 	}
 }
