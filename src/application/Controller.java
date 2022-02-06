@@ -1,16 +1,13 @@
 package application;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Random;
 import java.util.Vector;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
@@ -22,15 +19,18 @@ public class Controller {
 	public Random rand = new Random();
 
 	private Vector<Character> v = new Vector<Character>(); // 오답인 단어들 저장하는 벡터
-	private Vector<String> wordList = new Vector<String>(); // 단어들을 저장하는 벡터
+	private Dictionary dictionary = new Dictionary();
 
 	private String currentWord;
+	private String currentWordMeaning;
 	private int correctWord = 0;
 	private int phase = 0;
 	private int hintNum = 0;
 
 	@FXML
 	private TextField AnswerField;
+	@FXML
+	private TextArea wordMeaningArea;
 	@FXML
 	private Text AlreadyAnswered;
 	@FXML
@@ -75,25 +75,29 @@ public class Controller {
 	@FXML
 	private Button hintBtn;
 
-	public void getWordMeaning() {
-		// API로 원하는 단어의 뜻을 가져올 함
-	}
-
 	@FXML
 	private void Restart(ActionEvent event) throws MalformedURLException {
 		if (startBtn.getText() == "START") {
-			bringWords();
+			dictionary.bringWords();
 			submitBtn.setDisable(false);
 			startBtn.setText("NEXT");
 		} else if (startBtn.getText() != "NEXT") {
-			bringWords();
+			dictionary.bringWords();
 			submitBtn.setDisable(false);
 			startBtn.setText("NEXT");
 		} // 수정할 부분
 
-		rand.setSeed(System.currentTimeMillis());
-		currentWord = wordList.elementAt(rand.nextInt(wordList.size() - 1));
+		currentWord = dictionary.pickRandomWord();
 		System.out.println(currentWord);
+
+		try {
+			currentWordMeaning = dictionary.getWordMeaning(currentWord);
+			System.out.println(currentWordMeaning);
+
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		resetValues();
 	}
@@ -103,30 +107,29 @@ public class Controller {
 		if (correctWord < 6) {
 			String ans = AnswerField.getText();
 			AnswerField.setText(""); // Initialize answer field.
-			
-			if(ans.length()==1 && isAlphabet(ans.charAt(0))) {
+
+			if (ans.length() == 1 && isAlphabet(ans.charAt(0))) {
 				char temp = ans.toLowerCase().charAt(0);
-				
-				if(currentWord.indexOf(temp, 0) != -1 && !v.contains(ans.charAt(0))) {
+
+				if (currentWord.indexOf(temp, 0) != -1 && !v.contains(ans.charAt(0))) {
 					setTextVisible(temp);
 					v.add(temp);
-				} else if(v.contains(temp)) {
+				} else if (v.contains(temp)) {
 					System.out.println("Wrong Character.");
 				}
-				
+
 				else {
-					phase += 1; //정답이 틀린 경
+					phase += 1; // 정답이 틀린 경
 					v.add(temp);
 
-					if (AlreadyAnswered.getText().length() == 0) {
-						AlreadyAnswered.setText(temp + "");
-					} else {
-						AlreadyAnswered.setText(AlreadyAnswered.getText() + ", " + temp);
-					}
+					String str = (AlreadyAnswered.getText().length() == 0) ? temp + ""
+							: AlreadyAnswered.getText() + ", " + temp;
+
+					AlreadyAnswered.setText(str);
 
 					drawHangMan(phase);
 				}
-				
+
 			} else {
 				System.out.println("Wrong Character.");
 			}
@@ -136,65 +139,37 @@ public class Controller {
 			gameEnded(true);
 		}
 	}
-	
+
 	@FXML
 	private void Hint(ActionEvent event) {
-		if(!hintBtn.isDisabled()) {
-			if (word1.getText()=="") {
+		if (!hintBtn.isDisabled()) {
+			if (word1.getText() == "") {
 				word1.setText(currentWord.charAt(0) + "");
-			}else if (word2.getText()=="") {
+			} else if (word2.getText() == "") {
 				word2.setText(currentWord.charAt(1) + "");
-			}else if (word3.getText() == "") {
+			} else if (word3.getText() == "") {
 				word3.setText(currentWord.charAt(2) + "");
-			}
-			else if (word4.getText() == "") {
+			} else if (word4.getText() == "") {
 				word4.setText(currentWord.charAt(3) + "");
-			}
-			else if (word5.getText() == "") {
+			} else if (word5.getText() == "") {
 				word5.setText(currentWord.charAt(4) + "");
-			}
-			else if (word6.getText() == "") {
+			} else if (word6.getText() == "") {
 				word6.setText(currentWord.charAt(5) + "");
 			} else {
 				correctWord--;
 			}
-			
+
 			hintNum++;
 			correctWord++;
 		}
-		
-		if(hintNum == 2) {
+
+		if (hintNum == 2) {
 			hintBtn.setDisable(true);
 		}
-		
-		if(correctWord==6) {
+
+		if (correctWord == 6) {
 			gameEnded(true);
 		}
-	}
-
-	public void bringWords() {
-		try {
-			URL link = new URL("https://random-word-api.herokuapp.com/word?number=1000");
-			BufferedReader in = new BufferedReader(new InputStreamReader(link.openStream()));
-			String inputLine;
-
-			while ((inputLine = in.readLine()) != null) { // 한 행씩 읽기
-				inputLine = inputLine.substring(1, inputLine.length() - 1);
-				String[] salesTeamArray = inputLine.split(",");
-
-				for (int i = 0; i < salesTeamArray.length; i++) {
-					if (salesTeamArray[i].length() == 8) {
-						wordList.add(salesTeamArray[i].substring(1, salesTeamArray[i].length() - 1));
-						System.out.println(salesTeamArray[i].substring(1, salesTeamArray[i].length() - 1));
-					}
-				}
-			}
-			in.close();
-
-		} catch (IOException e) {
-			System.out.println("URL에서 데이터를 읽는 중 오류가 발생 했습니다.");
-		}
-
 	}
 
 	public boolean isAlphabet(char ch) {
@@ -204,7 +179,7 @@ public class Controller {
 			flag = true;
 		else if (temp >= 97 && temp <= 122)
 			flag = true;
-	
+
 		return flag;
 	}
 
@@ -252,6 +227,8 @@ public class Controller {
 		AlreadyAnswered.setText("");
 		FailsText.setText("Fails: ");
 		Smile.setText("");
+		currentWordMeaning = (currentWordMeaning.length() == 0) ? "No meaning provided." : currentWordMeaning;
+		wordMeaningArea.setText(currentWordMeaning);
 
 		submitBtn.setDisable(false);
 		hintBtn.setDisable(false);
@@ -348,7 +325,7 @@ public class Controller {
 		if (!isWon) {
 			Smile.setText("X");
 			FailsText.setText("You Lost : (");
-			
+
 			setHangmanY(-10);
 			showAns();
 			submitBtn.setDisable(true);

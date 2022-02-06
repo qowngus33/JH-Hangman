@@ -7,14 +7,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.layout.BorderPane;
 
 
 public class Main extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Parent root = FXMLLoader.load(getClass().getResource("hangman.fxml"));
-		primaryStage.setScene(new Scene(root));
+		Scene scene = new Scene(root);
+		scene.getStylesheets().add("application/application.css");
+		primaryStage.setScene(scene);
 		primaryStage.setTitle("Hangman");
 		primaryStage.show();
 	}
