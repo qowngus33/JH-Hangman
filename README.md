@@ -1,4 +1,4 @@
-# JH-Hangman
+## JH-Hangman
 
 Classic HANGMAN game.
 
