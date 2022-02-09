@@ -13,7 +13,7 @@ import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
 
-public class Controller {
+public class MainController {
 
 	public final double initialHeadLayoutY = 119.0;
 	public Random rand = new Random();
@@ -69,41 +69,35 @@ public class Controller {
 	@FXML
 	private Line slingRope;
 	@FXML
-	private Button startBtn;
+	private Line word1Bar;
+	@FXML
+	private Line word6Bar;
+	@FXML
+	private Button nextBtn;
 	@FXML
 	private Button submitBtn;
 	@FXML
 	private Button hintBtn;
-
+	
 	@FXML
-	private void Restart(ActionEvent event) throws MalformedURLException {
-		if (startBtn.getText() == "START") {
+	private void Next(ActionEvent event) throws MalformedURLException {
+
+		if (nextBtn.getText() == "START") {
 			dictionary.bringWords();
 			submitBtn.setDisable(false);
-			startBtn.setText("NEXT");
-		} else if (startBtn.getText() != "NEXT") {
-			dictionary.bringWords();
-			submitBtn.setDisable(false);
-			startBtn.setText("NEXT");
-		} // 수정할 부분
-
-		currentWord = dictionary.pickRandomWord();
-		System.out.println(currentWord);
-
-		try {
-			currentWordMeaning = dictionary.getWordMeaning(currentWord);
-			System.out.println(currentWordMeaning);
-
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			nextBtn.setText("NEXT");
+		} 
+		if (nextBtn.getText() != "NEXT") {
+			nextBtn.setText("NEXT");
 		}
 
+		getWord();
 		resetValues();
 	}
 
 	@FXML
 	private void Submit(ActionEvent event) {
+
 		if (correctWord < 6) {
 			String ans = AnswerField.getText();
 			AnswerField.setText(""); // Initialize answer field.
@@ -135,39 +129,44 @@ public class Controller {
 			}
 		}
 
-		if (correctWord == 6) {
+		if (correctWord == currentWord.length()) {
 			gameEnded(true);
 		}
 	}
 
+	public void getWord() throws MalformedURLException {
+		currentWord = dictionary.pickRandomWord();
+		System.out.println(currentWord);
+		currentWordMeaning = dictionary.getWordMeaning(currentWord);
+		
+		if(currentWordMeaning.length()>0) {
+			if(isAlphabet(currentWordMeaning.charAt(0))) {
+				String temp = (currentWordMeaning.charAt(0)+"").toUpperCase();
+				currentWordMeaning = temp + currentWordMeaning.substring(1,currentWordMeaning.length()-1);
+			}
+		}
+	}
+	
 	@FXML
 	private void Hint(ActionEvent event) {
 		if (!hintBtn.isDisabled()) {
-			if (word1.getText() == "") {
-				word1.setText(currentWord.charAt(0) + "");
-			} else if (word2.getText() == "") {
-				word2.setText(currentWord.charAt(1) + "");
-			} else if (word3.getText() == "") {
-				word3.setText(currentWord.charAt(2) + "");
-			} else if (word4.getText() == "") {
-				word4.setText(currentWord.charAt(3) + "");
-			} else if (word5.getText() == "") {
-				word5.setText(currentWord.charAt(4) + "");
-			} else if (word6.getText() == "") {
-				word6.setText(currentWord.charAt(5) + "");
-			} else {
-				correctWord--;
+			for(int i=0;i<currentWord.length();i++) {
+				if(!v.contains(currentWord.charAt(i))) {
+					setTextVisible(currentWord.charAt(i));
+					hintNum++;
+					v.add(currentWord.charAt(i));
+					i = currentWord.length();
+					break;
+				}
 			}
-
-			hintNum++;
-			correctWord++;
+			
 		}
 
-		if (hintNum == 2) {
+		if (hintNum == 3) {
 			hintBtn.setDisable(true);
 		}
 
-		if (correctWord == 6) {
+		if (correctWord == currentWord.length()) {
 			gameEnded(true);
 		}
 	}
@@ -184,27 +183,32 @@ public class Controller {
 	}
 
 	public void setTextVisible(char ch) {
-		if (currentWord.charAt(0) == ch && word1.getText() == "") {
-			word1.setText(ch + "");
-			correctWord++;
+		int temp = currentWord.length();
+		if (currentWord.length()==6 && word1.getText() == "") {
+			if(currentWord.charAt(temp-6)==ch) {
+				word1.setText(ch + "");
+				correctWord++;
+			}
 		}
-		if (currentWord.charAt(1) == ch && word2.getText() == "") {
-			word2.setText(ch + "");
-			correctWord++;
+		if (currentWord.length()>=5 && word2.getText() == "") {
+			if(currentWord.charAt(temp-5)==ch) {
+				word2.setText(ch + "");
+				correctWord++;
+			}
 		}
-		if (currentWord.charAt(2) == ch && word3.getText() == "") {
+		if (currentWord.charAt(temp-4) == ch && word3.getText() == "") {
 			word3.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(3) == ch && word4.getText() == "") {
+		if (currentWord.charAt(temp-3) == ch && word4.getText() == "") {
 			word4.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(4) == ch && word5.getText() == "") {
+		if (currentWord.charAt(temp-2) == ch && word5.getText() == "") {
 			word5.setText(ch + "");
 			correctWord++;
 		}
-		if (currentWord.charAt(5) == ch && word6.getText() == "") {
+		if (currentWord.charAt(temp-1) == ch && word6.getText() == "") {
 			word6.setText(ch + "");
 			correctWord++;
 		}
@@ -223,6 +227,13 @@ public class Controller {
 		correctWord = 0;
 		phase = 0;
 		hintNum = 0;
+
+		if (currentWord.length() == 5) {
+			word6Bar.setVisible(true);
+		} else if (currentWord.length() == 6) {
+			word1Bar.setVisible(true);
+			word6Bar.setVisible(true);
+		}
 
 		AlreadyAnswered.setText("");
 		FailsText.setText("Fails: ");
@@ -290,12 +301,10 @@ public class Controller {
 	}
 
 	public void showAns() {
-		word1.setText(currentWord.charAt(0) + "");
-		word2.setText(currentWord.charAt(1) + "");
-		word3.setText(currentWord.charAt(2) + "");
-		word4.setText(currentWord.charAt(3) + "");
-		word5.setText(currentWord.charAt(4) + "");
-		word6.setText(currentWord.charAt(5) + "");
+		for(int i=0;i<currentWord.length();i++) {
+			correctWord = (currentWord.length()+1)*(-1);
+			setTextVisible(currentWord.charAt(i));
+		}
 	}
 
 	public void setVisibilityFalse() {
@@ -308,7 +317,8 @@ public class Controller {
 		slingX.setVisible(false);
 		slingY.setVisible(false);
 		slingRope.setVisible(false);
-
+		word1Bar.setVisible(false);
+		word6Bar.setVisible(false);
 	}
 
 	public void setWordsVoid() {
@@ -340,3 +350,6 @@ public class Controller {
 		AlreadyAnswered.setText("");
 	}
 }
+
+
+
