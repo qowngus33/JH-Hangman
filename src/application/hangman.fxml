@@ -6,7 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane fx:controller="application.Controller" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<Pane fx:controller="application.MainController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#dceeff" height="47.0" layoutY="1.0" stroke="TRANSPARENT" strokeType="INSIDE" width="600.0" />
       <TextField fx:id="AnswerField" layoutX="385.0" layoutY="338.0" prefHeight="27.0" prefWidth="108.0" />
@@ -25,15 +25,15 @@
       <Line fx:id="slingRope" endY="-39.0" layoutX="430.0" layoutY="128.0" startY="-50.0" />
       <Line fx:id="man_left_leg" endX="-10.0" endY="120.0" layoutX="430.0" layoutY="122.0" startY="70.0" />
       <Line fx:id="man_right_leg" endX="10.0" endY="120.0" layoutX="430.0" layoutY="122.0" startY="70.0" />
-      <Button fx:id="startBtn" layoutX="531.0" layoutY="10.0" mnemonicParsing="false" onAction="#Restart" text="START" />
-      <Button fx:id="submitBtn" layoutX="497.0" layoutY="338.0" mnemonicParsing="false" onAction="#Submit" disable="true" text="Enter" />
+      <Button fx:id="nextBtn" layoutX="531.0" layoutY="10.0" mnemonicParsing="false" onAction="#Next" text="START" />
+      <Button fx:id="submitBtn" layoutX="498.0" layoutY="338.0" mnemonicParsing="false" onAction="#Submit" disable="true" text="Enter" />
       <Button fx:id="hintBtn" layoutX="45.0" layoutY="319.0" mnemonicParsing="false" onAction="#Hint" disable="true" text="hint" />
-      <Line endX="-70.0" layoutX="403.0" layoutY="319.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="443.0" layoutY="319.0" startX="-100.0" />
+      <Line fx:id="word1Bar" endX="-70.0" layoutX="403.0" layoutY="319.0" startX="-100.0" />
+      <Line fx:id="word6Bar" endX="-70.0" layoutX="443.0" layoutY="319.0" startX="-100.0" />
       <Line endX="-70.0" layoutX="483.0" layoutY="319.0" startX="-100.0" />
       <Line endX="-70.0" layoutX="523.0" layoutY="319.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="563.0" layoutY="319.0" startX="-100.0" />
-      <Line endX="-70.0" layoutX="603.0" layoutY="319.0" startX="-100.0" />
+      <Line  endX="-70.0" layoutX="563.0" layoutY="319.0" startX="-100.0" />
+      <Line  endX="-70.0" layoutX="603.0" layoutY="319.0" startX="-100.0" />
       <Text fx:id="word1" layoutX="312.0" layoutY="305.0" strokeType="OUTSIDE" strokeWidth="0.0" text="D">
          <font>
             <Font size="17.0" />
@@ -64,7 +64,11 @@
             <Font size="17.0" />
          </font>
       </Text>
-      <TextArea layoutX="45.0" layoutY="83.0" prefHeight="185.0" prefWidth="214.0" />
+      <TextArea fx:id="wordMeaningArea" wrapText="true" editable="false" layoutX="45.0" layoutY="83.0" prefHeight="185.0" prefWidth="214.0">
+       <font>
+            <Font size="13.0" />
+         </font>
+      </TextArea>
       <Text fill="#000000ab" layoutX="219.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JH HANGMAN GAME" textAlignment="CENTER">
          <font>
             <Font name="System Bold" size="19.0" />
