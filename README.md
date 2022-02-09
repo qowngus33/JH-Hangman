@@ -2,4 +2,4 @@
 
 Classic HANGMAN game.
 
-Made with JavaFx SceneBuilder and java(eclipse).
+Made with JavaFX
