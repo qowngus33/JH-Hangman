@@ -6,21 +6,30 @@
 <?import javafx.scene.layout.*?>
 
 
-<StackPane fx:controller="application.startPageController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
-   <children>
-      <Pane prefHeight="200.0" prefWidth="200.0">
-         <children>
-            <Text fx:id="mainText" layoutX="152.0" layoutY="202.0" strokeType="OUTSIDE" strokeWidth="0.0" text="JH Hangman Game">
-               <font>
-                  <Font size="36.0" />
-               </font>
-            </Text>
-            <Button onAction="#gameStart" fx:id="startBtn" layoutX="261.0" layoutY="226.0" mnemonicParsing="false" text="START">
-               <font>
-                  <Font size="20.0" />
-               </font>
-            </Button>
-         </children>
-      </Pane>
-   </children>
+<StackPane fx:controller="application.startPageController"
+	maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+	minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0"
+	xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+	<children>
+		<Pane prefHeight="200.0" prefWidth="200.0">
+			<children>
+				<Text fx:id="mainText" layoutX="152.0" layoutY="190.0"
+					strokeType="OUTSIDE" strokeWidth="0.0" text="JH Hangman Game">
+					<font>
+						<Font size="36.0" />
+					</font>
+				</Text>
+				<Button onAction="#gameStart" fx:id="startBtn"
+					layoutX="261.0" layoutY="226.0" mnemonicParsing="false"
+					text="START">
+					<font>
+						<Font size="20.0" />
+					</font>
+				</Button>
+				<ProgressBar fx:id="progressBar" layoutX="160.0"
+					layoutY="285.0" prefHeight="18.0" prefWidth="290.0" />
+				<ProgressIndicator fx:id="p" layoutX="14.0" layoutY="14.0" prefHeight="33.0" prefWidth="40.0" />
+			</children>
+		</Pane>
+	</children>
 </StackPane>

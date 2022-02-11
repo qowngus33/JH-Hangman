@@ -1,19 +1,26 @@
 package application;
 
 import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.Random;
+import java.util.ResourceBundle;
 import java.util.Vector;
-
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Text;
+import javafx.util.Duration;
 
-public class MainController {
+public class MainController implements Initializable {
 
 	public final double initialHeadLayoutY = 119.0;
 	public Random rand = new Random();
@@ -79,18 +86,25 @@ public class MainController {
 	@FXML
 	private Button hintBtn;
 	
+	@Override
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		dictionary.bringWords();
+		submitBtn.setDisable(false);
+		nextBtn.setText("NEXT");
+		
+		try {
+			getWord();
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		resetValues();
+	}
+	
 	@FXML
 	private void Next(ActionEvent event) throws MalformedURLException {
-
-		if (nextBtn.getText() == "START") {
-			dictionary.bringWords();
-			submitBtn.setDisable(false);
-			nextBtn.setText("NEXT");
-		} 
-		if (nextBtn.getText() != "NEXT") {
-			nextBtn.setText("NEXT");
-		}
-
+		
 		getWord();
 		resetValues();
 	}
@@ -106,13 +120,15 @@ public class MainController {
 				char temp = ans.toLowerCase().charAt(0);
 
 				if (currentWord.indexOf(temp, 0) != -1 && !v.contains(ans.charAt(0))) {
+					
 					setTextVisible(temp);
 					v.add(temp);
+					
 				} else if (v.contains(temp)) {
+					
 					System.out.println("Wrong Character.");
-				}
-
-				else {
+					
+				} else {
 					phase += 1; // 정답이 틀린 경
 					v.add(temp);
 
