@@ -13,7 +13,8 @@
       <Text fx:id="FailsText" layoutX="50.0" layoutY="299.0" strokeType="OUTSIDE" strokeWidth="0.0" text="">
          <font>
             <Font name="System Bold" size="15.0" />
-         </font></Text>
+         </font>
+      </Text>
       <Text fx:id="Smile" layoutX="426.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" rotate="90" text=""/>
       <Text layoutX="291.0" layoutY="357.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Enter one word:" />
       <Line fx:id="slingX" endX="70.0" endY="5.0" layoutX="447.0" layoutY="72.0" startX="-110.0" startY="5.0" />

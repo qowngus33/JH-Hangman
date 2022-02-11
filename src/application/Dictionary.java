@@ -17,7 +17,7 @@ public class Dictionary {
 	
 	public void bringWords() {
 		try {
-			URL link = new URL("https://random-word-api.herokuapp.com/word?number=100&swear=0&lang=en");
+			URL link = new URL("https://random-word-api.herokuapp.com/word?number=1000&swear=0&lang=en");
 			BufferedReader in = new BufferedReader(new InputStreamReader(link.openStream()));
 			
 			String inputLine;
