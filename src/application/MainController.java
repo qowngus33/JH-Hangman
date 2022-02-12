@@ -56,7 +56,8 @@ public class MainController implements Initializable {
 	private Text word5;
 	@FXML
 	private Text word6;
-
+	@FXML
+	private Text scoreNum;
 	@FXML
 	private Circle man_head;
 	@FXML
@@ -91,7 +92,6 @@ public class MainController implements Initializable {
 		
 		dictionary.bringWords();
 		submitBtn.setDisable(false);
-		nextBtn.setText("NEXT");
 		
 		try {
 			getWord();
@@ -103,8 +103,7 @@ public class MainController implements Initializable {
 	}
 	
 	@FXML
-	private void Next(ActionEvent event) throws MalformedURLException {
-		
+	private void Next(ActionEvent event) throws MalformedURLException {	
 		getWord();
 		resetValues();
 	}
@@ -351,14 +350,13 @@ public class MainController implements Initializable {
 		if (!isWon) {
 			Smile.setText("X");
 			FailsText.setText("You Lost : (");
-
 			setHangmanY(-10);
 			showAns();
 			submitBtn.setDisable(true);
 		} else {
 			Smile.setText(": )");
 			FailsText.setText("You Win !!");
-
+			scoreNum.setText((Integer.parseInt(scoreNum.getText())+1)+"");
 			showMan();
 		}
 		hintBtn.setDisable(true);

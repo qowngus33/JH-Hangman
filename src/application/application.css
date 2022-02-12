@@ -8,7 +8,7 @@
 
 .button{
   -fx-background-color: #FFFFFF;
-  -fx-text-fill: #111827;
+  -fx-text-fill: #000000ab;
   -fx-font-weight: 600;
   -fx-cursor: pointer;
   -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.75) , 4,0,0,1 );
